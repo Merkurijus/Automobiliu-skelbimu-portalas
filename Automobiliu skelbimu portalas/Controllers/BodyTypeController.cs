@@ -51,7 +51,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         // POST: BodyTypeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(BodyTypeVM model)
+        public async Task<ActionResult> Create(CreateBodyTypeVM model)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var bodyType = await _repo.FindById(id);
-            var model = _mapper.Map<BodyType, BodyTypeVM>(bodyType);
+            var model = _mapper.Map<BodyType, CreateBodyTypeVM>(bodyType);
             if (model == null)
             {
                 return NotFound();
@@ -94,7 +94,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         // POST: BodyTypeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, BodyTypeVM model)
+        public async Task<ActionResult> Edit(int id, CreateBodyTypeVM model)
         {
             try
             {

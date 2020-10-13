@@ -2,80 +2,234 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Automobiliu_skelbimu_portalas.Contracts;
+using Automobiliu_skelbimu_portalas.Data;
+using Automobiliu_skelbimu_portalas.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Automobiliu_skelbimu_portalas.Controllers
 {
+    [Authorize]
     public class AdController : Controller
     {
-        // GET: AdController
-        public ActionResult Index()
+        private readonly IMapper _mapper;
+        private readonly IAdRepository _adRepo;
+        private readonly IMakeRepository _makeRepo;
+        private readonly IModelRepository _modelRepo;
+        private readonly IFuelTypeRepository _fuelTypeRepo;
+        private readonly IBodyTypeRepository _bodyTypeRepo;
+        private readonly IDamageRepository _damageRepo;
+        private readonly IColorRepository _colorRepo;
+        private readonly IGearBoxRepository _gearBoxRepo;
+
+        public AdController(
+            IAdRepository adRepo,
+            IMakeRepository makeRepo,
+            IModelRepository modelRepo,
+            IFuelTypeRepository fuelTypeRepo,
+            IBodyTypeRepository bodyTypeRepo,
+            IDamageRepository damageRepo,
+            IColorRepository colorRepo,
+            IGearBoxRepository gearBoxRepo,
+            IMapper mapper)
         {
-            return View();
+            _adRepo = adRepo;
+
+            _makeRepo = makeRepo;
+            _modelRepo = modelRepo;
+            _fuelTypeRepo = fuelTypeRepo;
+            _bodyTypeRepo = bodyTypeRepo;
+            _damageRepo = damageRepo;
+            _colorRepo = colorRepo;
+            _gearBoxRepo = gearBoxRepo;
+            _mapper = mapper;
+        }
+       
+
+        // GET: AdController
+        public async Task<ActionResult> Index()
+        {
+            var ads = await _adRepo.FindAll();
+            var model = _mapper.Map<List<Ad>>(ads);
+            return View(model);
         }
 
         // GET: AdController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var ads = await _adRepo.FindById(id);
+            var model = _mapper.Map<Ad, AdVM>(ads);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return View(model);
         }
 
         // GET: AdController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View();
+            var makeRepo = await _makeRepo.FindAll();
+            var modelRepo = await _modelRepo.FindAll();
+            var fuelTypeRepo = await _fuelTypeRepo.FindAll();
+            var bodyTypeRepo = await _bodyTypeRepo.FindAll();
+            var damageRepo = await _damageRepo.FindAll();
+            var colorRepo = await _colorRepo.FindAll();
+            var gearBoxRepo = await _gearBoxRepo.FindAll();
+
+            var makeItems = makeRepo.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+            var modelItems = modelRepo.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+            var fuelTypeItems = fuelTypeRepo.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+            var bodyTypeItems = bodyTypeRepo.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+            var damageItems = damageRepo.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+            var colorItems = colorRepo.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+            var gearBoxItems = gearBoxRepo.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+            var model = new CreateAdVM
+            {
+                MakeList = makeItems,
+                ModelList = modelItems,
+                FuelTypeList = fuelTypeItems,
+                BodyTypeList = bodyTypeItems,
+                DamageList = damageItems,
+                ColorList = colorItems,
+                GearBoxList = gearBoxItems
+
+            };
+            return View(model);
         }
 
         // POST: AdController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(CreateAdVM model)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                var ads = _mapper.Map<Ad>(model);
+                var isSuccess = await _adRepo.Create(ads);
+                if (!isSuccess)
+                {
+                    ModelState.AddModelError("", "Something went wrong...");
+                    return View(model);
+                }
+
+
+
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
 
         // GET: AdController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var ad = await _adRepo.FindById(id);
+            var model = _mapper.Map<Ad, AdVM>(ad);
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return View(model);
         }
 
         // POST: AdController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, AdVM model)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                var ad = _mapper.Map<Ad>(model);
+                var isSuccess = await _adRepo.Edit(ad);
+                if (!isSuccess)
+                {
+                    ModelState.AddModelError("", "Something went wrong...");
+                    return View(model);
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
 
         // GET: AdController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            var ad = await _adRepo.FindById(id);
+            var model = _mapper.Map<Ad, AdVM>(ad);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return View(model);
         }
 
-        // POST: AdController/Delete/5
+        // POST: BodyTypeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, AdVM model)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+                var ad = await _adRepo.FindById(id);
+                var isSuccess = await _adRepo.Delete(ad);
+                if (!isSuccess)
+                {
+                    ModelState.AddModelError("", "Something went wrong...");
+                    return View(model);
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -35,14 +35,14 @@ namespace Automobiliu_skelbimu_portalas.Repository
 
         public async Task<List<Make>> FindAll()
         {
-            var damages = await _db.Makes.ToListAsync();
-            return damages;
+            var data = await _db.Makes.ToListAsync();
+            return data;
         }
 
         public async Task<Make> FindById(int id)
         {
-            var damage = await _db.Makes.FindAsync(id);
-            return damage;
+            var data = await _db.Makes.FindAsync(id);
+            return data;
         }
 
         public async Task<bool> Save()

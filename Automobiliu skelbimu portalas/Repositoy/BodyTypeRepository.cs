@@ -27,9 +27,10 @@ namespace Automobiliu_skelbimu_portalas.Repository
             return Save();
         }
 
-        public Task<bool> Edit(BodyType entity)
+        public async Task<bool> Edit(BodyType entity)
         {
-            throw new NotImplementedException();
+            _db.BodyTypes.Update(entity);
+            return await Save();
         }
 
         public async Task<List<BodyType>> FindAll()

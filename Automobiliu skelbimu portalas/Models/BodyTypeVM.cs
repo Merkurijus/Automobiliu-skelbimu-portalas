@@ -12,4 +12,11 @@ namespace Automobiliu_skelbimu_portalas.Models
         public int Id { get; set; }
         public string Title { get; set; }
     }
+    public class CreateBodyTypeVM
+    {
+        [Key]
+        public int Id { get; set; }
+        [Required]
+        public string Title { get; set; }
+    }
 }

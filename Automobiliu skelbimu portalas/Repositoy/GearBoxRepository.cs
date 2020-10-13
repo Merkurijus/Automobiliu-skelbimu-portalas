@@ -35,14 +35,14 @@ namespace Automobiliu_skelbimu_portalas.Repository
 
         public async Task<List<GearBox>> FindAll()
         {
-            var damages = await _db.GearBoxes.ToListAsync();
-            return damages;
+            var data = await _db.GearBoxes.ToListAsync();
+            return data;
         }
 
         public async Task<GearBox> FindById(int id)
         {
-            var damage = await _db.GearBoxes.FindAsync(id);
-            return damage;
+            var data = await _db.GearBoxes.FindAsync(id);
+            return data;
         }
 
         public async Task<bool> Save()

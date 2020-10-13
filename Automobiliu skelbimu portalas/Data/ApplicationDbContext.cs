@@ -27,8 +27,13 @@ namespace Automobiliu_skelbimu_portalas.Data
         public DbSet<Searches> SearchesList { get; set; }
         public DbSet<User> UsersList { get; set; }
         public DbSet<Viewed> ViewedList { get; set; }
-        public DbSet<Automobiliu_skelbimu_portalas.Models.BodyTypeVM> BodyTypeVM { get; set; }
-        public DbSet<Automobiliu_skelbimu_portalas.Models.MakeVM> MakeVM { get; set; }
+        public DbSet<Automobiliu_skelbimu_portalas.Models.AdVM> AdVM { get; set; }
+        public DbSet<Automobiliu_skelbimu_portalas.Models.ColorVM> ColorVM { get; set; }
+        public DbSet<Automobiliu_skelbimu_portalas.Models.DamageVM> DamageVM { get; set; }
+        public DbSet<Automobiliu_skelbimu_portalas.Models.FuelTypeVM> FuelTypeVM { get; set; }
+        public DbSet<Automobiliu_skelbimu_portalas.Models.GearBoxVM> GearBoxVM { get; set; }
+        public DbSet<Automobiliu_skelbimu_portalas.Models.ModelVM> ModelVM { get; set; }
+       
        
     }
 }

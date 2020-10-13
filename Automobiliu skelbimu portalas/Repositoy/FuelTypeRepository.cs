@@ -35,14 +35,14 @@ namespace Automobiliu_skelbimu_portalas.Repository
 
         public async Task<List<FuelType>> FindAll()
         {
-            var damages = await _db.FuelTypes.ToListAsync();
-            return damages;
+            var data = await _db.FuelTypes.ToListAsync();
+            return data;
         }
 
         public async Task<FuelType> FindById(int id)
         {
-            var damage = await _db.FuelTypes.FindAsync(id);
-            return damage;
+            var data = await _db.FuelTypes.FindAsync(id);
+            return data;
         }
 
         public async Task<bool> Save()

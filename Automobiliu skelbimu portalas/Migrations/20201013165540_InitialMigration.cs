@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Automobiliu_skelbimu_portalas.Migrations
 {
-    public partial class GeneratingBaseDatabase : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -234,26 +234,6 @@ namespace Automobiliu_skelbimu_portalas.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SearchesList",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(nullable: true),
-                    Time = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SearchesList", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SearchesList_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ViewedList",
                 columns: table => new
                 {
@@ -274,13 +254,33 @@ namespace Automobiliu_skelbimu_portalas.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Models",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(nullable: false),
+                    MakeId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Models", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Models_Makes_MakeId",
+                        column: x => x.MakeId,
+                        principalTable: "Makes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Ads",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MakeId = table.Column<int>(nullable: false),
-                    ModelId = table.Column<int>(nullable: false),
+                    CarMakeId = table.Column<int>(nullable: false),
+                    CarModelId = table.Column<int>(nullable: false),
                     Year = table.Column<int>(nullable: false),
                     Price = table.Column<int>(nullable: false),
                     FuelTypeId = table.Column<int>(nullable: false),
@@ -301,6 +301,18 @@ namespace Automobiliu_skelbimu_portalas.Migrations
                         name: "FK_Ads_BodyTypes_BodyTypeId",
                         column: x => x.BodyTypeId,
                         principalTable: "BodyTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Ads_Makes_CarMakeId",
+                        column: x => x.CarMakeId,
+                        principalTable: "Makes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Ads_Models_CarModelId",
+                        column: x => x.CarModelId,
+                        principalTable: "Models",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -325,12 +337,6 @@ namespace Automobiliu_skelbimu_portalas.Migrations
                         name: "FK_Ads_GearBoxes_GearBoxId",
                         column: x => x.GearBoxId,
                         principalTable: "GearBoxes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Ads_Makes_MakeId",
-                        column: x => x.MakeId,
-                        principalTable: "Makes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -364,21 +370,28 @@ namespace Automobiliu_skelbimu_portalas.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Models",
+                name: "SearchesList",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(nullable: true),
-                    AdId = table.Column<int>(nullable: true)
+                    UserId = table.Column<string>(nullable: true),
+                    AdId = table.Column<int>(nullable: false),
+                    Time = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Models", x => x.Id);
+                    table.PrimaryKey("PK_SearchesList", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Models_Ads_AdId",
+                        name: "FK_SearchesList_Ads_AdId",
                         column: x => x.AdId,
                         principalTable: "Ads",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SearchesList_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -387,6 +400,16 @@ namespace Automobiliu_skelbimu_portalas.Migrations
                 name: "IX_Ads_BodyTypeId",
                 table: "Ads",
                 column: "BodyTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ads_CarMakeId",
+                table: "Ads",
+                column: "CarMakeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ads_CarModelId",
+                table: "Ads",
+                column: "CarModelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ads_ColorId",
@@ -407,11 +430,6 @@ namespace Automobiliu_skelbimu_portalas.Migrations
                 name: "IX_Ads_GearBoxId",
                 table: "Ads",
                 column: "GearBoxId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ads_MakeId",
-                table: "Ads",
-                column: "MakeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -463,8 +481,13 @@ namespace Automobiliu_skelbimu_portalas.Migrations
                 column: "UserId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Models_AdId",
+                name: "IX_Models_MakeId",
                 table: "Models",
+                column: "MakeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SearchesList_AdId",
+                table: "SearchesList",
                 column: "AdId");
 
             migrationBuilder.CreateIndex(
@@ -499,9 +522,6 @@ namespace Automobiliu_skelbimu_portalas.Migrations
                 name: "MarkedList");
 
             migrationBuilder.DropTable(
-                name: "Models");
-
-            migrationBuilder.DropTable(
                 name: "SearchesList");
 
             migrationBuilder.DropTable(
@@ -518,6 +538,9 @@ namespace Automobiliu_skelbimu_portalas.Migrations
 
             migrationBuilder.DropTable(
                 name: "BodyTypes");
+
+            migrationBuilder.DropTable(
+                name: "Models");
 
             migrationBuilder.DropTable(
                 name: "Colors");

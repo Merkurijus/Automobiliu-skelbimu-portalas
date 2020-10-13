@@ -35,14 +35,14 @@ namespace Automobiliu_skelbimu_portalas.Repository
 
         public async Task<List<Color>> FindAll()
         {
-            var colors = await _db.Colors.ToListAsync();
-            return colors;
+            var data = await _db.Colors.ToListAsync();
+            return data;
         }
 
         public async Task<Color> FindById(int id)
         {
-            var color = await _db.Colors.FindAsync(id);
-            return color;
+            var data = await _db.Colors.FindAsync(id);
+            return data;
         }
 
         public async Task<bool> Save()

@@ -1,5 +1,6 @@
 ﻿using Automobiliu_skelbimu_portalas.Contracts;
 using Automobiliu_skelbimu_portalas.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,41 +8,64 @@ using System.Threading.Tasks;
 
 namespace Automobiliu_skelbimu_portalas.Repository
 {
+
     public class AdRepository : IAdRepository
     {
+
+        private readonly ApplicationDbContext _db;
+        public AdRepository(ApplicationDbContext db)
+        {
+            _db = db;
+        }
         public Task<bool> Create(Ad entity)
         {
-            throw new NotImplementedException();
+            _db.Ads.Add(entity);
+            return Save();
         }
 
         public Task<bool> Delete(Ad entity)
         {
-            throw new NotImplementedException();
+            _db.Ads.Remove(entity);
+            return Save();
         }
 
-        public Task<bool> Edit(Ad entity)
+        public async Task<bool> Edit(Ad entity)
         {
-            throw new NotImplementedException();
+            _db.Ads.Update(entity);
+            return await Save();
         }
 
-        public Task<List<Ad>> FindAll()
+        public async Task<List<Ad>> FindAll()
         {
-            throw new NotImplementedException();
+            var data = await _db.Ads.
+                Include(q => q.CarMake).
+                Include(q => q.CarModel).
+                Include(q => q.FuelType).
+                Include(q => q.BodyType).
+                Include(q => q.Damage).
+                Include(q => q.Color).
+                Include(q => q.GearBox).
+                ToListAsync();
+            return data;
         }
 
-        public Task<Ad> FindById(int id)
+        public async Task<Ad> FindById(int id)
         {
-            throw new NotImplementedException();
+            var data = await _db.Ads.FindAsync(id);
+            return data;
         }
 
-        public Task<bool> Save()
+        public async Task<bool> Save()
         {
-            throw new NotImplementedException();
+            var isSuccess = await _db.SaveChangesAsync();
+            return isSuccess > 0;
         }
 
-        public Task<bool> Update(Ad entity)
+        public async Task<bool> Update(Ad entity)
         {
-            throw new NotImplementedException();
+            _db.Ads.Update(entity);
+            return await Save();
         }
     }
+        
 }

@@ -35,14 +35,14 @@ namespace Automobiliu_skelbimu_portalas.Repository
 
         public async Task<List<Viewed>> FindAll()
         {
-            var damages = await _db.ViewedList.ToListAsync();
-            return damages;
+            var data = await _db.ViewedList.ToListAsync();
+            return data;
         }
 
         public async Task<Viewed> FindById(int id)
         {
-            var damage = await _db.ViewedList.FindAsync(id);
-            return damage;
+            var data = await _db.ViewedList.FindAsync(id);
+            return data;
         }
 
         public async Task<bool> Save()

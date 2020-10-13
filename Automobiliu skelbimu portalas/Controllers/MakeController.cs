@@ -31,8 +31,8 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         // GET: MakeController/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            var makes = await _repo.FindById(id);
-            var model = _mapper.Map<Make, MakeVM>(makes);
+            var make = await _repo.FindById(id);
+            var model = _mapper.Map<Make, MakeVM>(make);
             if (model == null)
             {
                 return NotFound();
@@ -49,7 +49,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         // POST: MakeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(MakeVM model)
+        public async Task<ActionResult> Create(CreateMakeVM model)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var make = await _repo.FindById(id);
-            var model = _mapper.Map<Make, MakeVM>(make);
+            var model = _mapper.Map<Make, CreateMakeVM>(make);
             if (model == null)
             {
                 return NotFound();
@@ -87,7 +87,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         // POST: MakeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, MakeVM model)
+        public async Task<ActionResult> Edit(int id, CreateMakeVM model)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         // POST: MakeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id, BodyTypeVM model)
+        public async Task<ActionResult> Delete(int id, MakeVM model)
         {
             try
             {

@@ -29,6 +29,12 @@ namespace Automobiliu_skelbimu_portalas.Migrations
                     b.Property<int>("BodyTypeId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CarMakeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CarModelId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ColorId")
                         .HasColumnType("int");
 
@@ -50,12 +56,6 @@ namespace Automobiliu_skelbimu_portalas.Migrations
                     b.Property<int>("Kilometrage")
                         .HasColumnType("int");
 
-                    b.Property<int>("MakeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ModelId")
-                        .HasColumnType("int");
-
                     b.Property<int>("NumberOfSeats")
                         .HasColumnType("int");
 
@@ -73,6 +73,10 @@ namespace Automobiliu_skelbimu_portalas.Migrations
 
                     b.HasIndex("BodyTypeId");
 
+                    b.HasIndex("CarMakeId");
+
+                    b.HasIndex("CarModelId");
+
                     b.HasIndex("ColorId");
 
                     b.HasIndex("DamageId");
@@ -80,10 +84,6 @@ namespace Automobiliu_skelbimu_portalas.Migrations
                     b.HasIndex("FuelTypeId");
 
                     b.HasIndex("GearBoxId");
-
-                    b.HasIndex("MakeId");
-
-                    b.HasIndex("ModelId");
 
                     b.ToTable("Ads");
                 });
@@ -213,10 +213,16 @@ namespace Automobiliu_skelbimu_portalas.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("MakeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MakeId");
 
                     b.ToTable("Models");
                 });
@@ -493,6 +499,18 @@ namespace Automobiliu_skelbimu_portalas.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Automobiliu_skelbimu_portalas.Data.Make", "CarMake")
+                        .WithMany()
+                        .HasForeignKey("CarMakeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Automobiliu_skelbimu_portalas.Data.Model", "CarModel")
+                        .WithMany()
+                        .HasForeignKey("CarModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Automobiliu_skelbimu_portalas.Data.Color", "Color")
                         .WithMany()
                         .HasForeignKey("ColorId")
@@ -516,18 +534,6 @@ namespace Automobiliu_skelbimu_portalas.Migrations
                         .HasForeignKey("GearBoxId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Automobiliu_skelbimu_portalas.Data.Make", "Make")
-                        .WithMany()
-                        .HasForeignKey("MakeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Automobiliu_skelbimu_portalas.Data.Model", "Model")
-                        .WithMany()
-                        .HasForeignKey("ModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Automobiliu_skelbimu_portalas.Data.Marked", b =>
@@ -541,6 +547,13 @@ namespace Automobiliu_skelbimu_portalas.Migrations
                     b.HasOne("Automobiliu_skelbimu_portalas.Data.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId1");
+                });
+
+            modelBuilder.Entity("Automobiliu_skelbimu_portalas.Data.Model", b =>
+                {
+                    b.HasOne("Automobiliu_skelbimu_portalas.Data.Make", "Make")
+                        .WithMany()
+                        .HasForeignKey("MakeId");
                 });
 
             modelBuilder.Entity("Automobiliu_skelbimu_portalas.Data.Searches", b =>
