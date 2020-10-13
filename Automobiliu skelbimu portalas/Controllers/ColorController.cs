@@ -8,9 +8,11 @@ using Automobiliu_skelbimu_portalas.Models;
 using Automobiliu_skelbimu_portalas.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Automobiliu_skelbimu_portalas.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class ColorController : Controller
     {
         private readonly IMapper _mapper;

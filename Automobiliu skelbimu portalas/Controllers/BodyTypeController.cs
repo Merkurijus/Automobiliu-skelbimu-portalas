@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Automobiliu_skelbimu_portalas.Contracts;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Automobiliu_skelbimu_portalas.Controllers
 {
+    [Authorize(Roles ="Administrator")]
     public class BodyTypeController : Controller
     {
         private readonly IMapper _mapper;

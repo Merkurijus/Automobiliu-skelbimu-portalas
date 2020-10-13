@@ -6,11 +6,13 @@ using AutoMapper;
 using Automobiliu_skelbimu_portalas.Contracts;
 using Automobiliu_skelbimu_portalas.Data;
 using Automobiliu_skelbimu_portalas.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Automobiliu_skelbimu_portalas.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class DamageController : Controller
     {
         private readonly IMapper _mapper;
