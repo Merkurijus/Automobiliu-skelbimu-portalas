@@ -16,7 +16,7 @@ namespace Automobiliu_skelbimu_portalas.Data
         [ForeignKey("AdId")]
         public Ad Ad{ get; set; }
         public int AdId { get; set; }
-        public IdentityUser User { get; set; }
+        public User User { get; set; }
         public int UserId { get; set; }
         public DateTime Time { get; set; }
     }

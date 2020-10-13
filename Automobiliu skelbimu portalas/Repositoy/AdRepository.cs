@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Automobiliu_skelbimu_portalas.Repositoy
+namespace Automobiliu_skelbimu_portalas.Repository
 {
     public class AdRepository : IAdRepository
     {
@@ -24,7 +24,7 @@ namespace Automobiliu_skelbimu_portalas.Repositoy
             throw new NotImplementedException();
         }
 
-        public Task<ICollection<Ad>> FindAll()
+        public Task<List<Ad>> FindAll()
         {
             throw new NotImplementedException();
         }

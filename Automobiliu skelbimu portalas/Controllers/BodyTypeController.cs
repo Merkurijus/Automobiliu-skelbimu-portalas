@@ -2,54 +2,56 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using Automobiliu_skelbimu_portalas.Contracts;
 using Automobiliu_skelbimu_portalas.Data;
 using Automobiliu_skelbimu_portalas.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
+using Automobiliu_skelbimu_portalas.Contracts;
 
 namespace Automobiliu_skelbimu_portalas.Controllers
 {
-    public class MakeController : Controller
+    public class BodyTypeController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly IMakeRepository _repo;
-        public MakeController(IMapper mapper, IMakeRepository repo)
+        private readonly IBodyTypeRepository _repo;
+        public BodyTypeController(IBodyTypeRepository repo, IMapper mapper)
         {
-            _mapper = mapper;
             _repo = repo;
+            _mapper = mapper;
         }
-        // GET: MakeController
+
+        // GET: BodyTypeController
         public async Task<ActionResult> Index()
         {
-            var makes = await _repo.FindAll();
-            var model = _mapper.Map<List<Make>, List<MakeVM>>(makes);
+            var bodytypes = await _repo.FindAll();
+            var model = _mapper.Map<List<BodyType>, List<BodyTypeVM>>(bodytypes);
             return View(model);
         }
 
-        // GET: MakeController/Details/5
+        // GET: BodyTypeController/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            var makes = await _repo.FindById(id);
-            var model = _mapper.Map<Make, MakeVM>(makes);
-            if (model == null)
+            var bodyTypes = await _repo.FindById(id);
+            var model = _mapper.Map<BodyType, BodyTypeVM>(bodyTypes);
+            if(model == null)
             {
                 return NotFound();
             }
             return View(model);
         }
 
-        // GET: MakeController/Create
-        public ActionResult Create()
+        // GET: BodyTypeController/Create
+        public  ActionResult Create()
         {
+            
             return View();
         }
 
-        // POST: MakeController/Create
+        // POST: BodyTypeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(MakeVM model)
+        public async Task<ActionResult> Create(BodyTypeVM model)
         {
             try
             {
@@ -57,13 +59,17 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 {
                     return View(model);
                 }
-                var make = _mapper.Map<Make>(model);
-                var isSuccess = await _repo.Create(make);
+
+                var bodyType = _mapper.Map<BodyType>(model);
+                var isSuccess = await _repo.Create(bodyType);
                 if (!isSuccess)
                 {
-                    ModelState.AddModelError("", "Somethin went wrong...");
+                    ModelState.AddModelError("", "Something went wrong...");
                     return View(model);
                 }
+                
+
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -72,22 +78,23 @@ namespace Automobiliu_skelbimu_portalas.Controllers
             }
         }
 
-        // GET: MakeController/Edit/5
+        // GET: BodyTypeController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var make = await _repo.FindById(id);
-            var model = _mapper.Map<Make, MakeVM>(make);
+            var bodyType = await _repo.FindById(id);
+            var model = _mapper.Map<BodyType, BodyTypeVM>(bodyType);
             if (model == null)
             {
                 return NotFound();
             }
+            
             return View(model);
         }
 
-        // POST: MakeController/Edit/5
+        // POST: BodyTypeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, MakeVM model)
+        public async Task<ActionResult> Edit(int id, BodyTypeVM model)
         {
             try
             {
@@ -95,8 +102,9 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 {
                     return View(model);
                 }
-                var make = _mapper.Map<Make>(model);
-                var isSuccess = await _repo.Update(make);
+                
+                var bodyType = _mapper.Map<BodyType>(model);
+                var isSuccess = await _repo.Edit(bodyType);
                 if (!isSuccess)
                 {
                     ModelState.AddModelError("", "Something went wrong...");
@@ -110,11 +118,11 @@ namespace Automobiliu_skelbimu_portalas.Controllers
             }
         }
 
-        // GET: MakeController/Delete/5
+        // GET: BodyTypeController/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var make = await _repo.FindById(id);
-            var model = _mapper.Map<Make, MakeVM>(make);
+            var bodyType = await _repo.FindById(id);
+            var model = _mapper.Map<BodyType, BodyTypeVM>(bodyType);
             if (model == null)
             {
                 return NotFound();
@@ -122,7 +130,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
             return View(model);
         }
 
-        // POST: MakeController/Delete/5
+        // POST: BodyTypeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int id, BodyTypeVM model)
@@ -133,8 +141,8 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 {
                     return View(model);
                 }
-                var make = await _repo.FindById(id);
-                var isSuccess = await _repo.Delete(make);
+                var bodyType = await _repo.FindById(id);
+                var isSuccess = await _repo.Delete(bodyType);
                 if (!isSuccess)
                 {
                     ModelState.AddModelError("", "Something went wrong...");

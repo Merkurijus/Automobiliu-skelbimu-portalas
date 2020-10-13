@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Automobiliu_skelbimu_portalas.Contracts
 {
-    interface IRepositoryBase<T> where T : class
+    public interface IRepositoryBase<T> where T : class
     {
-        Task<ICollection<T>> FindAll();
+        Task<List<T>> FindAll();
         Task<T> FindById(int id);
         Task<bool> Create(T entity);
         Task<bool> Update(T entity);

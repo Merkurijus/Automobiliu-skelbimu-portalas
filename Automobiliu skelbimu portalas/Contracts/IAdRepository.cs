@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Automobiliu_skelbimu_portalas.Contracts
 {
-    interface IAdRepository : IRepositoryBase<Ad>
+    public interface IAdRepository : IRepositoryBase<Ad>
     {
 
     }

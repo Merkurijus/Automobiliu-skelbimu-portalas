@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Automobiliu_skelbimu_portalas.Models;
+
 
 namespace Automobiliu_skelbimu_portalas.Data
 {
@@ -25,5 +27,8 @@ namespace Automobiliu_skelbimu_portalas.Data
         public DbSet<Searches> SearchesList { get; set; }
         public DbSet<User> UsersList { get; set; }
         public DbSet<Viewed> ViewedList { get; set; }
+        public DbSet<Automobiliu_skelbimu_portalas.Models.BodyTypeVM> BodyTypeVM { get; set; }
+        public DbSet<Automobiliu_skelbimu_portalas.Models.MakeVM> MakeVM { get; set; }
+       
     }
 }

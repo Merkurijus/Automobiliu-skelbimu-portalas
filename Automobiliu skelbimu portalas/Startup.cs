@@ -13,7 +13,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Automobiliu_skelbimu_portalas.Contracts;
-using Automobiliu_skelbimu_portalas.Repositoy;
+using Automobiliu_skelbimu_portalas.Repository;
+using AutoMapper;
+using Automobiliu_skelbimu_portalas.Mapping;
 
 namespace Automobiliu_skelbimu_portalas
 {
@@ -32,6 +34,7 @@ namespace Automobiliu_skelbimu_portalas
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddScoped<IAdRepository, AdRepository>();
             services.AddScoped<IBodyTypeRepository, BodyTypeRepository>();
             services.AddScoped<IColorRepository, ColorRepository>();
@@ -43,7 +46,9 @@ namespace Automobiliu_skelbimu_portalas
             services.AddScoped<IModelRepository, ModelRepository>();
             services.AddScoped<ISearchesRepository, SearchesRepository>();
             services.AddScoped<IViewedRepository, ViewedRepository>();
-            
+
+            services.AddAutoMapper(typeof(Maps));
+
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
