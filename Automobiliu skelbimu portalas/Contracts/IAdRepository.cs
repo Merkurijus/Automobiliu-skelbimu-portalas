@@ -8,6 +8,6 @@ namespace Automobiliu_skelbimu_portalas.Contracts
 {
     public interface IAdRepository : IRepositoryBase<Ad>
     {
-
+        public Task<List<Ad>> GetSearchResults(Ad enitity);
     }
 }

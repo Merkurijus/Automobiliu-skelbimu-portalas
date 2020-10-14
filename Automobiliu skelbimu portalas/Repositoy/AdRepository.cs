@@ -74,6 +74,40 @@ namespace Automobiliu_skelbimu_portalas.Repository
             _db.Ads.Update(entity);
             return await Save();
         }
+        public async Task<List<Ad>> GetSearchResults(Ad entity)
+        {
+            var allData = await FindAll();
+            var searchResults = allData.Where(x => x.IsApproved == true).ToList();
+            if (!String.IsNullOrEmpty(entity.CarMake.Title))
+            {
+                searchResults = searchResults.Where(x => x.CarMake.Title.Equals(entity.CarMake.Title)).ToList();
+            }
+            if (!String.IsNullOrEmpty(entity.CarModel.Title))
+            {
+                searchResults = searchResults.Where(x => x.CarModel.Title.Equals(entity.CarModel.Title)).ToList();
+            }
+            if (!String.IsNullOrEmpty(entity.BodyType.Title))
+            {
+                searchResults = searchResults.Where(x => x.BodyType.Title.Equals(entity.BodyType.Title)).ToList();
+            }
+            if (!String.IsNullOrEmpty(entity.Color.Title))
+            {
+                searchResults = searchResults.Where(x => x.Color.Title.Equals(entity.Color.Title)).ToList();
+            }
+            if (!String.IsNullOrEmpty(entity.Damage.Title))
+            {
+                searchResults = searchResults.Where(x => x.Damage.Title.Equals(entity.Damage.Title)).ToList();
+            }
+            if (!String.IsNullOrEmpty(entity.FuelType.Title))
+            {
+                searchResults = searchResults.Where(x => x.FuelType.Title.Equals(entity.FuelType.Title)).ToList();
+            }
+            if (!String.IsNullOrEmpty(entity.GearBox.Title))
+            {
+                searchResults = searchResults.Where(x => x.GearBox.Title.Equals(entity.GearBox.Title)).ToList();
+            }
+            return searchResults;
+        }
     }
         
 }

@@ -8,5 +8,6 @@ namespace Automobiliu_skelbimu_portalas.Contracts
 {
     public interface IMakeRepository : IRepositoryBase<Make>
     {
+       
     }
 }

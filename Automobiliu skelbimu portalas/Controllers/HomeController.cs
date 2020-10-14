@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Automobiliu_skelbimu_portalas.Models;
 using Automobiliu_skelbimu_portalas.Contracts;
+using Automobiliu_skelbimu_portalas.Data;
 
 namespace Automobiliu_skelbimu_portalas.Controllers
 {

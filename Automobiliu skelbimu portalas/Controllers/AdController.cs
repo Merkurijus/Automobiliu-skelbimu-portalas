@@ -57,7 +57,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
             var model = _mapper.Map<List<Ad>>(ads);
             return View(model);
         }
-
+        [AllowAnonymous]
         // GET: AdController/Details/5
         public async Task<ActionResult> Details(int id)
         {

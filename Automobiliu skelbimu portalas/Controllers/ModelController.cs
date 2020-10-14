@@ -9,6 +9,7 @@ using Automobiliu_skelbimu_portalas.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Automobiliu_skelbimu_portalas.Controllers
 {
@@ -17,10 +18,12 @@ namespace Automobiliu_skelbimu_portalas.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IModelRepository _repo;
-        public ModelController(IMapper mapper, IModelRepository repo)
+        private readonly IMakeRepository _makeRepo;
+        public ModelController(IMapper mapper, IModelRepository repo, IMakeRepository makeRepo)
         {
             _mapper = mapper;
             _repo = repo;
+            _makeRepo = makeRepo;
         }
         // GET: ModelController
         public async Task<ActionResult> Index()
@@ -43,9 +46,19 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         }
 
         // GET: ModelController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View();
+            var makes = await _makeRepo.FindAll();
+            var makeItems = makes.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+            var model = new CreateModelVM
+            {
+                MakelList = makeItems
+            };
+            return View(model);
         }
 
         // POST: ModelController/Create
