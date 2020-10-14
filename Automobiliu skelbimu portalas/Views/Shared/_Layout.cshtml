@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,25 +22,57 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        
+
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Marked">Įsiminti</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Marked">Marked</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Searches">Paieškos</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Searches">Searches</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Viewed">Peržiūrėti skelbimai</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Viewed">Viewed</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <div class="container-fluid">
+        <div class="row">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div class="col-lg-3">
+                    <h1 class="my-4">Meniu</h1>
+                    <div class="list-group">
+                        
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <a asp-action="Index" asp-controller="Make" class="list-group-item">Makes</a>
+                            <a asp-action="Index" asp-controller="Model" class="list-group-item">Models</a>
+                            <a asp-action="Index" asp-controller="BodyType" class="list-group-item">Body types</a>
+                            <a asp-action="Index" asp-controller="Color" class="list-group-item">Colors</a>
+                            <a asp-action="Index" asp-controller="Damage" class="list-group-item">Damage types</a>
+                            <a asp-action="Index" asp-controller="FuelType" class="list-group-item">Fuel types</a>
+                            <a asp-action="Index" asp-controller="GearBox" class="list-group-item">Gearbox types</a>
+
+
+                        }
+
+
+                    </div>
+                </div>
+            }
+
+           
+                <div class="col-lg-9">
+
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
+                </div>
+          
+
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">

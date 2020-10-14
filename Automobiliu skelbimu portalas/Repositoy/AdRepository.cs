@@ -51,7 +51,15 @@ namespace Automobiliu_skelbimu_portalas.Repository
 
         public async Task<Ad> FindById(int id)
         {
-            var data = await _db.Ads.FindAsync(id);
+            var data = await _db.Ads
+                .Include(q => q.CarMake)
+                .Include(q => q.CarModel)
+                .Include(q => q.FuelType)
+                .Include(q => q.BodyType)
+                .Include(q => q.Damage)
+                .Include(q => q.Color)
+                .Include(q => q.GearBox)
+                .FirstOrDefaultAsync(q => q.Id == id);
             return data;
         }
 

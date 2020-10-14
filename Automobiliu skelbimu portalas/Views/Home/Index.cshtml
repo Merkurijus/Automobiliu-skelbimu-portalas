@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<Automobiliu_skelbimu_portalas.Data.Ad>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,3 +7,27 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@if (!Model.Any())
+{
+<div class="alert alert-danger" role="alert">
+    No Data Found
+</div>
+}
+else
+{
+    @foreach (var item in Model)
+    {
+        <a asp-action="Details" asp-controller="Ad" asp-route-id="@item.Id" target="_blank">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.CarMake.Title) - @Html.DisplayFor(modelItem => item.CarModel.Title)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Year) (@Html.DisplayFor(modelItem => item.Price)$)</p>
+                </div>
+            </div>
+        </a>
+
+    }
+}
+

@@ -6,21 +6,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Automobiliu_skelbimu_portalas.Models;
+using Automobiliu_skelbimu_portalas.Contracts;
 
 namespace Automobiliu_skelbimu_portalas.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IAdRepository _repo;
+        public HomeController(ILogger<HomeController> logger, IAdRepository repo)
         {
             _logger = logger;
+            _repo = repo;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var ads = await _repo.FindAll();
+            return View(ads);
         }
 
         public IActionResult Marked()
@@ -41,5 +44,6 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+       
     }
 }

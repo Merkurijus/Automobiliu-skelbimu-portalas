@@ -28,6 +28,7 @@ namespace Automobiliu_skelbimu_portalas.Mapping
             CreateMap<FuelType, CreateFuelTypeVM>().ReverseMap();
             CreateMap<GearBox, GearBoxVM>().ReverseMap();
             CreateMap<GearBox, CreateGearBoxVM>().ReverseMap();
+            CreateMap<GearBox, CreateGearBoxVM>().ReverseMap();
             CreateMap<Model, ModelVM>().ReverseMap();
             CreateMap<Model, CreateModelVM>().ReverseMap();
         }
