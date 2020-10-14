@@ -7,8 +7,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Automobiliu skelbimu portalas</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/lib/font-awesome/css/fontawesome.min.css" />
+    </environment>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
@@ -42,25 +48,42 @@
             @if (SignInManager.IsSignedIn(User))
             {
                 <div class="col-lg-3">
-                    <h1 class="my-4">Meniu</h1>
+                    
                     <div class="list-group">
-                        
+
                         @if (User.IsInRole("Administrator"))
                         {
-                            <a asp-action="Index" asp-controller="Make" class="list-group-item">Makes</a>
-                            <a asp-action="Index" asp-controller="Model" class="list-group-item">Models</a>
-                            <a asp-action="Index" asp-controller="BodyType" class="list-group-item">Body types</a>
-                            <a asp-action="Index" asp-controller="Color" class="list-group-item">Colors</a>
-                            <a asp-action="Index" asp-controller="Damage" class="list-group-item">Damage types</a>
-                            <a asp-action="Index" asp-controller="FuelType" class="list-group-item">Fuel types</a>
-                            <a asp-action="Index" asp-controller="GearBox" class="list-group-item">Gearbox types</a>
+                            <div class="panel-group" id="accordion1">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <button class="btn btn-link" data-target="#Exampleone" data-toggle="collapse" data-parent="#accordion1">
+                                                <span class="fa fa-plus"></span>
+                                                Meniu
+                                            </button>
+                                        </h4>
+                                    </div>
+                                    <div class="panel-collapse in collapse show" id="Exampleone">
+                                        <div class="panel-body">
+                                            <a asp-action="Index" asp-controller="Make" class="list-group-item">Makes</a>
+                                            <a asp-action="Index" asp-controller="Model" class="list-group-item">Models</a>
+                                            <a asp-action="Index" asp-controller="BodyType" class="list-group-item">Body types</a>
+                                            <a asp-action="Index" asp-controller="Color" class="list-group-item">Colors</a>
+                                            <a asp-action="Index" asp-controller="Damage" class="list-group-item">Damage types</a>
+                                            <a asp-action="Index" asp-controller="FuelType" class="list-group-item">Fuel types</a>
+                                            <a asp-action="Index" asp-controller="GearBox" class="list-group-item">Gearbox types</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                
 
 
-                        }
+                                }
 
 
-                    </div>
-                </div>
+                            </div>
+                        </div>
             }
 
            

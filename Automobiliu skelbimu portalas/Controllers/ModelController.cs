@@ -76,7 +76,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 var isSuccess = await _repo.Create(carModel);
                 if (!isSuccess)
                 {
-                    ModelState.AddModelError("", "Somethin went wrong...");
+                    ModelState.AddModelError("", "Something went wrong...");
                     return View(model);
                 }
                 return RedirectToAction(nameof(Index));
