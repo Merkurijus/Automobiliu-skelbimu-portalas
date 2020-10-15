@@ -1,4 +1,4 @@
-﻿@model Automobiliu_skelbimu_portalas.Models.AdVM
+﻿@model Automobiliu_skelbimu_portalas.Models.CreateAdVM
 
 <div>
     <h4>AdVM</h4>
@@ -85,5 +85,7 @@
     </dl>
 </div>
 <div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
     <a asp-action="Index">Back to List</a>
 </div>

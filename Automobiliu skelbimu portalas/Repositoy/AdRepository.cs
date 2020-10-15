@@ -79,13 +79,13 @@ namespace Automobiliu_skelbimu_portalas.Repository
         {
             var allData = await FindAll();
             var searchResults = allData.Where(x => x.IsApproved == true).ToList();
-            if (!String.IsNullOrEmpty(searches.CarMake.Title))
+            if (searches.CarMakeId > 0)
             {
-                searchResults = searchResults.Where(x => x.CarMake.Title.Equals(searches.CarMake.Title)).ToList();
+                searchResults = searchResults.Where(x => x.CarMakeId == searches.CarMakeId).ToList();
             }
-            if (!String.IsNullOrEmpty(searches.CarModel.Title))
+            if (searches.CarModelId > 0)
             {
-                searchResults = searchResults.Where(x => x.CarModel.Title.Equals(searches.CarModel.Title)).ToList();
+                searchResults = searchResults.Where(x => x.CarModelId == searches.CarModelId).ToList();
             }
             if (searches.PriceFrom > 0)
             {
@@ -111,25 +111,26 @@ namespace Automobiliu_skelbimu_portalas.Repository
             {
                 searchResults = searchResults.Where(x => x.EngineCapacity > searches.EngineCapacityTo).ToList();
             }
-            if (!String.IsNullOrEmpty(searches.BodyType.Title))
+            if (searches.BodyTypeId > 0)
             {
-                searchResults = searchResults.Where(x => x.BodyType.Title.Equals(searches.BodyType.Title)).ToList();
+                searchResults = searchResults.Where(x => x.BodyTypeId == searches.BodyTypeId).ToList();
             }
-            if (!String.IsNullOrEmpty(searches.Color.Title))
+
+            if (searches.ColorId > 0)
             {
-                searchResults = searchResults.Where(x => x.Color.Title.Equals(searches.Color.Title)).ToList();
+                searchResults = searchResults.Where(x => x.ColorId == searches.ColorId).ToList();
             }
-            if (!String.IsNullOrEmpty(searches.Damage.Title))
+            if (searches.DamageId > 0)
             {
-                searchResults = searchResults.Where(x => x.Damage.Title.Equals(searches.Damage.Title)).ToList();
+                searchResults = searchResults.Where(x => x.DamageId == searches.DamageId).ToList();
             }
-            if (!String.IsNullOrEmpty(searches.FuelType.Title))
+            if (searches.FuelTypeId > 0)
             {
-                searchResults = searchResults.Where(x => x.FuelType.Title.Equals(searches.FuelType.Title)).ToList();
+                searchResults = searchResults.Where(x => x.FuelTypeId == searches.FuelTypeId).ToList();
             }
-            if (!String.IsNullOrEmpty(searches.GearBox.Title))
+            if (searches.GearBoxId > 0)
             {
-                searchResults = searchResults.Where(x => x.GearBox.Title.Equals(searches.GearBox.Title)).ToList();
+                searchResults = searchResults.Where(x => x.GearBoxId == searches.GearBoxId).ToList();
             }
             return searchResults;
         }

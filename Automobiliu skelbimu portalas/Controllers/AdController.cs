@@ -63,9 +63,9 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         }
         [AllowAnonymous]
         [HttpGet("Ad/Search")]
-        public async Task<ActionResult> Search(SearchAdVM searches)
+        public async Task<ActionResult> Search(HomepageAdVM homeModel)
         {
-            var modelVM = await _adRepo.GetSearchResults(searches);
+            var modelVM = await _adRepo.GetSearchResults(homeModel.Search);
             var model = _mapper.Map<List<Ad>>(modelVM);
             return View(nameof(Index), model);
 
@@ -75,7 +75,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         public async Task<ActionResult> Details(int id)
         {
             var ads = await _adRepo.FindById(id);
-            var model = _mapper.Map<Ad, AdVM>(ads);
+            var model = _mapper.Map<Ad, CreateAdVM>(ads);
             if (model == null)
             {
                 return NotFound();
@@ -176,8 +176,73 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         // GET: AdController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
+            var makeRepo = await _makeRepo.FindAll();
+            var modelRepo = await _modelRepo.FindAll();
+            var fuelTypeRepo = await _fuelTypeRepo.FindAll();
+            var bodyTypeRepo = await _bodyTypeRepo.FindAll();
+            var damageRepo = await _damageRepo.FindAll();
+            var colorRepo = await _colorRepo.FindAll();
+            var gearBoxRepo = await _gearBoxRepo.FindAll();
             var ad = await _adRepo.FindById(id);
-            var model = _mapper.Map<Ad, AdVM>(ad);
+            var makeItems = makeRepo.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+            var modelItems = modelRepo.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+            var fuelTypeItems = fuelTypeRepo.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+            var bodyTypeItems = bodyTypeRepo.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+            var damageItems = damageRepo.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+            var colorItems = colorRepo.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+            var gearBoxItems = gearBoxRepo.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+            var model = new CreateAdVM
+            {
+                MakeList = makeItems,
+                CarMakeId = ad.CarMakeId,
+                ModelList = modelItems,
+                CarModelId = ad.CarModelId,
+                Year = ad.Year,
+                Price = ad.Price,
+                FuelTypeList = fuelTypeItems,
+                FuelTypeId = ad.FuelTypeId,
+                BodyTypeList = bodyTypeItems,
+                EngineCapacity = ad.EngineCapacity,
+                Kilometrage = ad.Kilometrage,
+                DamageList = damageItems,
+                DamageId = ad.DamageId,
+                ColorList = colorItems,
+                ColorId = ad.ColorId,
+                NumberOfSeats = ad.NumberOfSeats,
+                GearBoxList = gearBoxItems,
+                GearBoxId = ad.GearBoxId,
+                SteeringWheel = ad.SteeringWheel
+
+            };
+
             if (model == null)
             {
                 return NotFound();
