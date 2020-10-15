@@ -20,6 +20,7 @@ namespace Automobiliu_skelbimu_portalas.Mapping
             CreateMap<Make, CreateMakeVM>().ReverseMap();
             CreateMap<Ad, AdVM>().ReverseMap();
             CreateMap<Ad, CreateAdVM>().ReverseMap();
+            CreateMap<Ad, SearchAdVM>().ReverseMap();
             CreateMap<Color, ColorVM>().ReverseMap();
             CreateMap<Color, CreateColorVM>().ReverseMap();
             CreateMap<Damage, DamageVM>().ReverseMap();

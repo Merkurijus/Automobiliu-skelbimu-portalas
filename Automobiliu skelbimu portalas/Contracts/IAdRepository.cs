@@ -1,4 +1,5 @@
 ﻿using Automobiliu_skelbimu_portalas.Data;
+using Automobiliu_skelbimu_portalas.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,6 @@ namespace Automobiliu_skelbimu_portalas.Contracts
 {
     public interface IAdRepository : IRepositoryBase<Ad>
     {
-        public Task<List<Ad>> GetSearchResults(Ad enitity);
+        public Task<List<Ad>> GetSearchResults(SearchAdVM searches);
     }
 }

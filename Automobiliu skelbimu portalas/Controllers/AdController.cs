@@ -48,16 +48,29 @@ namespace Automobiliu_skelbimu_portalas.Controllers
             _gearBoxRepo = gearBoxRepo;
             _mapper = mapper;
         }
-       
 
+        
         // GET: AdController
         public async Task<ActionResult> Index()
         {
             var ads = await _adRepo.FindAll();
-            var model = _mapper.Map<List<Ad>>(ads);
+            var model = new HomepageAdVM();
+            //var adsModel = _mapper.Map<List<Ad>>(ads);
+            model.Ads = ads;
+            model.Search = new SearchAdVM();
+            
             return View(model);
         }
         [AllowAnonymous]
+        [HttpGet("Ad/Search")]
+        public async Task<ActionResult> Search(SearchAdVM searches)
+        {
+            var modelVM = await _adRepo.GetSearchResults(searches);
+            var model = _mapper.Map<List<Ad>>(modelVM);
+            return View(nameof(Index), model);
+
+        }
+            [AllowAnonymous]
         // GET: AdController/Details/5
         public async Task<ActionResult> Details(int id)
         {
@@ -237,5 +250,8 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 return View();
             }
         }
+
+       
+        
     }
 }

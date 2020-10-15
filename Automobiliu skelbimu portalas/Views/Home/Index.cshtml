@@ -1,13 +1,24 @@
-﻿@model IEnumerable<Automobiliu_skelbimu_portalas.Data.Ad>
+﻿@model Automobiliu_skelbimu_portalas.Models.HomepageAdVM
+
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    
+    <form asp-action="Search" asp-controller="Ad">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Search.CarMakeId" class="control-label"></label>
+            @Html.DropDownListFor(q => q.Search.CarMakeId, new SelectList(Model.Search.MakeList, "Value", "Text"), "Select Make Type", new { @class = "form-control" })
+
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </form>
 </div>
 <div class="row">
-    @if (!Model.Any())
+    @if (!Model.Ads.Any())
     {
         <div class="alert alert-danger" role="alert">
             No Data Found
@@ -15,7 +26,7 @@
     }
     else
     {
-        @foreach (var item in Model)
+        @foreach (var item in Model.Ads)
         {
             <div class="auto-card">
 

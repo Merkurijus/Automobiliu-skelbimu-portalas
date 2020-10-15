@@ -48,7 +48,7 @@
             @if (SignInManager.IsSignedIn(User))
             {
                 <div class="col-lg-3">
-                    
+
                     <div class="list-group">
 
                         @if (User.IsInRole("Administrator"))
@@ -75,25 +75,25 @@
                                         </div>
                                     </div>
                                 </div>
-                                </div>
-                                
-
-
-                                }
-
-
                             </div>
-                        </div>
-            }
 
-           
+
+
+                        }
+
+
+                    </div>
+                </div>
+            }
+            
+
                 <div class="col-lg-9">
 
                     <main role="main" class="pb-3">
                         @RenderBody()
                     </main>
                 </div>
-          
+
 
         </div>
     </div>

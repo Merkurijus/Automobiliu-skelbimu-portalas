@@ -1,5 +1,6 @@
 ﻿using Automobiliu_skelbimu_portalas.Contracts;
 using Automobiliu_skelbimu_portalas.Data;
+using Automobiliu_skelbimu_portalas.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -74,40 +75,65 @@ namespace Automobiliu_skelbimu_portalas.Repository
             _db.Ads.Update(entity);
             return await Save();
         }
-        public async Task<List<Ad>> GetSearchResults(Ad entity)
+        public async Task<List<Ad>> GetSearchResults(SearchAdVM searches)
         {
             var allData = await FindAll();
             var searchResults = allData.Where(x => x.IsApproved == true).ToList();
-            if (!String.IsNullOrEmpty(entity.CarMake.Title))
+            if (!String.IsNullOrEmpty(searches.CarMake.Title))
             {
-                searchResults = searchResults.Where(x => x.CarMake.Title.Equals(entity.CarMake.Title)).ToList();
+                searchResults = searchResults.Where(x => x.CarMake.Title.Equals(searches.CarMake.Title)).ToList();
             }
-            if (!String.IsNullOrEmpty(entity.CarModel.Title))
+            if (!String.IsNullOrEmpty(searches.CarModel.Title))
             {
-                searchResults = searchResults.Where(x => x.CarModel.Title.Equals(entity.CarModel.Title)).ToList();
+                searchResults = searchResults.Where(x => x.CarModel.Title.Equals(searches.CarModel.Title)).ToList();
             }
-            if (!String.IsNullOrEmpty(entity.BodyType.Title))
+            if (searches.PriceFrom > 0)
             {
-                searchResults = searchResults.Where(x => x.BodyType.Title.Equals(entity.BodyType.Title)).ToList();
+                searchResults = searchResults.Where(x => x.Price < searches.PriceFrom).ToList();
             }
-            if (!String.IsNullOrEmpty(entity.Color.Title))
+            if (searches.PriceTo > 0)
             {
-                searchResults = searchResults.Where(x => x.Color.Title.Equals(entity.Color.Title)).ToList();
+                searchResults = searchResults.Where(x => x.Price > searches.PriceTo).ToList();
             }
-            if (!String.IsNullOrEmpty(entity.Damage.Title))
+            if (searches.YearFrom > 0)
             {
-                searchResults = searchResults.Where(x => x.Damage.Title.Equals(entity.Damage.Title)).ToList();
+                searchResults = searchResults.Where(x => x.Year < searches.YearTo).ToList();
             }
-            if (!String.IsNullOrEmpty(entity.FuelType.Title))
+            if (searches.YearTo > 0)
             {
-                searchResults = searchResults.Where(x => x.FuelType.Title.Equals(entity.FuelType.Title)).ToList();
+                searchResults = searchResults.Where(x => x.Year > searches.YearTo).ToList();
             }
-            if (!String.IsNullOrEmpty(entity.GearBox.Title))
+            if (searches.EngineCapacityFrom > 0)
             {
-                searchResults = searchResults.Where(x => x.GearBox.Title.Equals(entity.GearBox.Title)).ToList();
+                searchResults = searchResults.Where(x => x.EngineCapacity < searches.EngineCapacityFrom).ToList();
+            }
+            if (searches.EngineCapacityTo > 0)
+            {
+                searchResults = searchResults.Where(x => x.EngineCapacity > searches.EngineCapacityTo).ToList();
+            }
+            if (!String.IsNullOrEmpty(searches.BodyType.Title))
+            {
+                searchResults = searchResults.Where(x => x.BodyType.Title.Equals(searches.BodyType.Title)).ToList();
+            }
+            if (!String.IsNullOrEmpty(searches.Color.Title))
+            {
+                searchResults = searchResults.Where(x => x.Color.Title.Equals(searches.Color.Title)).ToList();
+            }
+            if (!String.IsNullOrEmpty(searches.Damage.Title))
+            {
+                searchResults = searchResults.Where(x => x.Damage.Title.Equals(searches.Damage.Title)).ToList();
+            }
+            if (!String.IsNullOrEmpty(searches.FuelType.Title))
+            {
+                searchResults = searchResults.Where(x => x.FuelType.Title.Equals(searches.FuelType.Title)).ToList();
+            }
+            if (!String.IsNullOrEmpty(searches.GearBox.Title))
+            {
+                searchResults = searchResults.Where(x => x.GearBox.Title.Equals(searches.GearBox.Title)).ToList();
             }
             return searchResults;
         }
+      
     }
         
 }
