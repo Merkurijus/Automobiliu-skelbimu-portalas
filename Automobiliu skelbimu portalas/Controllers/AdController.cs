@@ -51,15 +51,9 @@ namespace Automobiliu_skelbimu_portalas.Controllers
 
         
         // GET: AdController
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var ads = await _adRepo.FindAll();
-            var model = new HomepageAdVM();
-            //var adsModel = _mapper.Map<List<Ad>>(ads);
-            model.Ads = ads;
-            model.Search = new SearchAdVM();
-            
-            return View(model);
+            return RedirectToAction("Index", "Home");
         }
         [AllowAnonymous]
         [HttpGet("Ad/Search")]
@@ -184,41 +178,14 @@ namespace Automobiliu_skelbimu_portalas.Controllers
             var colorRepo = await _colorRepo.FindAll();
             var gearBoxRepo = await _gearBoxRepo.FindAll();
             var ad = await _adRepo.FindById(id);
-            var makeItems = makeRepo.Select(q => new SelectListItem
-            {
-                Text = q.Title,
-                Value = q.Id.ToString()
-            });
-            var modelItems = modelRepo.Select(q => new SelectListItem
-            {
-                Text = q.Title,
-                Value = q.Id.ToString()
-            });
-            var fuelTypeItems = fuelTypeRepo.Select(q => new SelectListItem
-            {
-                Text = q.Title,
-                Value = q.Id.ToString()
-            });
-            var bodyTypeItems = bodyTypeRepo.Select(q => new SelectListItem
-            {
-                Text = q.Title,
-                Value = q.Id.ToString()
-            });
-            var damageItems = damageRepo.Select(q => new SelectListItem
-            {
-                Text = q.Title,
-                Value = q.Id.ToString()
-            });
-            var colorItems = colorRepo.Select(q => new SelectListItem
-            {
-                Text = q.Title,
-                Value = q.Id.ToString()
-            });
-            var gearBoxItems = gearBoxRepo.Select(q => new SelectListItem
-            {
-                Text = q.Title,
-                Value = q.Id.ToString()
-            });
+            var makeItems = makeRepo.Select(q => new SelectListItem { Text = q.Title, Value = q.Id.ToString() });
+            var modelItems = modelRepo.Select(q => new SelectListItem { Text = q.Title, Value = q.Id.ToString() });
+            var fuelTypeItems = fuelTypeRepo.Select(q => new SelectListItem { Text = q.Title, Value = q.Id.ToString() });
+            var bodyTypeItems = bodyTypeRepo.Select(q => new SelectListItem { Text = q.Title, Value = q.Id.ToString() });
+            var damageItems = damageRepo.Select(q => new SelectListItem { Text = q.Title, Value = q.Id.ToString() });
+            var colorItems = colorRepo.Select(q => new SelectListItem { Text = q.Title, Value = q.Id.ToString() });
+            var gearBoxItems = gearBoxRepo.Select(q => new SelectListItem { Text = q.Title, Value = q.Id.ToString() });
+
             var model = new CreateAdVM
             {
                 MakeList = makeItems,

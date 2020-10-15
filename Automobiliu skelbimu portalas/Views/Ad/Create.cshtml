@@ -3,77 +3,118 @@
 <h4>AdVM</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CarMakeId" class="control-label"></label>
-                @Html.DropDownListFor(q => q.CarMakeId, new SelectList(Model.MakeList, "Value", "Text"), "Select Make Type", new { @class = "form-control" })
+            <div class="row">
+                <div class="col-lg-6">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="CarMakeId" class="control-label"></label>
+                        @Html.DropDownListFor(q => q.CarMakeId, new SelectList(Model.MakeList, "Value", "Text"), "Select Make Type", new { @class = "form-control" })
 
-            </div>
-            <div class="form-group">
-                <label asp-for="CarModelId" class="control-label"></label>
-                @Html.DropDownListFor(q => q.CarModelId, new SelectList(Model.ModelList, "Value", "Text"), "Select Model Type", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="CarModelId" class="control-label"></label>
+                        @Html.DropDownListFor(q => q.CarModelId, new SelectList(Model.ModelList, "Value", "Text"), "Select Model Type", new { @class = "form-control" })
 
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" />
-                <span asp-validation-for="Year" class="text-danger"></span>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="Year" class="control-label"></label>
+                        <input asp-for="Year" class="form-control" />
+                        <span asp-validation-for="Year" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="Price" class="control-label"></label>
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FuelTypeId" class="control-label"></label>
-                @Html.DropDownListFor(q => q.FuelTypeId, new SelectList(Model.FuelTypeList, "Value", "Text"), "Select Fuel Type", new { @class = "form-control" })
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="FuelTypeId" class="control-label"></label>
+                        @Html.DropDownListFor(q => q.FuelTypeId, new SelectList(Model.FuelTypeList, "Value", "Text"), "Select Fuel Type", new { @class = "form-control" })
 
-            </div>
-            <div class="form-group">
-                <label asp-for="BodyTypeId" class="control-label"></label>
-                @Html.DropDownListFor(q => q.BodyTypeId, new SelectList(Model.BodyTypeList, "Value", "Text"), "Select Body Type", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="BodyTypeId" class="control-label"></label>
+                        @Html.DropDownListFor(q => q.BodyTypeId, new SelectList(Model.BodyTypeList, "Value", "Text"), "Select Body Type", new { @class = "form-control" })
 
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="EngineCapacity" class="control-label"></label>
-                <input asp-for="EngineCapacity" class="form-control" />
-                <span asp-validation-for="EngineCapacity" class="text-danger"></span>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="EngineCapacity" class="control-label"></label>
+                        <input asp-for="EngineCapacity" class="form-control" />
+                        <span asp-validation-for="EngineCapacity" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="Kilometrage" class="control-label"></label>
+                        <input asp-for="Kilometrage" class="form-control" />
+                        <span asp-validation-for="Kilometrage" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Kilometrage" class="control-label"></label>
-                <input asp-for="Kilometrage" class="form-control" />
-                <span asp-validation-for="Kilometrage" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DamageId" class="control-label"></label>
-                @Html.DropDownListFor(q => q.DamageId, new SelectList(Model.DamageList, "Value", "Text"), "Select Damage Type", new { @class = "form-control" })
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="DamageId" class="control-label"></label>
+                        @Html.DropDownListFor(q => q.DamageId, new SelectList(Model.DamageList, "Value", "Text"), "Select Damage Type", new { @class = "form-control" })
 
-            </div>
-            <div class="form-group">
-                <label asp-for="ColorId" class="control-label"></label>
-                @Html.DropDownListFor(q => q.ColorId, new SelectList(Model.ColorList, "Value", "Text"), "Select Color Type", new { @class = "form-control" })
+                    </div>
+                </div>
 
-            </div>
-            <div class="form-group">
-                <label asp-for="NumberOfSeats" class="control-label"></label>
-                <input asp-for="NumberOfSeats" class="form-control" />
-                <span asp-validation-for="NumberOfSeats" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GearBoxId" class="control-label"></label>
-                @Html.DropDownListFor(q => q.GearBoxId, new SelectList(Model.GearBoxList, "Value", "Text"), "Select Gear Box Type", new { @class = "form-control" })
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="ColorId" class="control-label"></label>
+                        @Html.DropDownListFor(q => q.ColorId, new SelectList(Model.ColorList, "Value", "Text"), "Select Color Type", new { @class = "form-control" })
 
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="SteeringWheel" class="control-label"></label>
-                <input asp-for="SteeringWheel" class="form-control" />
-                <span asp-validation-for="SteeringWheel" class="text-danger"></span>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="NumberOfSeats" class="control-label"></label>
+                        <input asp-for="NumberOfSeats" class="form-control" />
+                        <span asp-validation-for="NumberOfSeats" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="GearBoxId" class="control-label"></label>
+                        @Html.DropDownListFor(q => q.GearBoxId, new SelectList(Model.GearBoxList, "Value", "Text"), "Select Gear Box Type", new { @class = "form-control" })
+
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="SteeringWheel" class="control-label"></label>
+                        <input asp-for="SteeringWheel" class="form-control" />
+                        <span asp-validation-for="SteeringWheel" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
         </form>
     </div>
 </div>

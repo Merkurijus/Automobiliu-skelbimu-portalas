@@ -1,6 +1,7 @@
 ﻿using Automobiliu_skelbimu_portalas.Contracts;
 using Automobiliu_skelbimu_portalas.Data;
 using Automobiliu_skelbimu_portalas.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace Automobiliu_skelbimu_portalas.Repository
     {
 
         private readonly ApplicationDbContext _db;
+      
         public AdRepository(ApplicationDbContext db)
         {
             _db = db;
@@ -134,7 +136,7 @@ namespace Automobiliu_skelbimu_portalas.Repository
             }
             return searchResults;
         }
-      
+     
     }
         
 }
