@@ -4,7 +4,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center my-5">
+<div class="jumbotron">
     <form asp-action="Search" asp-controller="Ad" method="get">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row">
@@ -22,32 +22,24 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label asp-for="Search.YearFrom" class="control-label"></label>
-                    <input asp-for="Search.YearFrom" class="form-control" />
-                    <span asp-validation-for="Search.YearFrom" class="text-danger"></span>
+                    @Html.DropDownListFor(q => q.Search.YearFromInt, new SelectList(Model.Search.YearFrom, "Value", "Text"), "Select Year from", new { @class = "form-control" })
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label asp-for="Search.YearTo" class="control-label"></label>
-                    <input asp-for="Search.YearTo" class="form-control" />
-                    <span asp-validation-for="Search.YearTo" class="text-danger"></span>
+                    @Html.DropDownListFor(q => q.Search.YearToInt, new SelectList(Model.Search.YearTo, "Value", "Text"), "Select Year to", new { @class = "form-control" })
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label asp-for="Search.PriceFrom" class="control-label"></label>
-                    <input asp-for="Search.PriceFrom" class="form-control" />
-                    <span asp-validation-for="Search.PriceFrom" class="text-danger"></span>
+                    @Html.DropDownListFor(q => q.Search.PriceFromInt, new SelectList(Model.Search.PriceFrom, "Value", "Text"), "Select Price from", new { @class = "form-control" })
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label asp-for="Search.PriceTo" class="control-label"></label>
-                    <input asp-for="Search.PriceTo" class="form-control" />
-                    <span asp-validation-for="Search.PriceTo" class="text-danger"></span>
+                    @Html.DropDownListFor(q => q.Search.PriceToInt, new SelectList(Model.Search.PriceTo, "Value", "Text"), "Select Price to", new { @class = "form-control" })
                 </div>
             </div>
         </div>

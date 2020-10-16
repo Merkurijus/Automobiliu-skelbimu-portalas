@@ -130,10 +130,14 @@ namespace Automobiliu_skelbimu_portalas.Models
         [DisplayName("Model")]
         public int CarModelId { get; set; }
         public ModelVM CarModel { get; set; }
-        public int YearFrom { get; set; }
-        public int YearTo { get; set; }
-        public int PriceFrom { get; set; }
-        public int PriceTo { get; set; }
+        public IEnumerable<SelectListItem> YearFrom { get; set; }
+        public int YearFromInt { get; set; }
+        public IEnumerable<SelectListItem> YearTo { get; set; }
+        public int YearToInt { get; set; }
+        public IEnumerable<SelectListItem> PriceFrom { get; set; }
+        public int PriceFromInt { get; set; }
+        public IEnumerable<SelectListItem> PriceTo { get; set; }
+        public int PriceToInt { get; set; }
         [NotMapped]
         public IEnumerable<SelectListItem> FuelTypeList { get; set; }
         [DisplayName("Fuel type")]

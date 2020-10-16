@@ -59,6 +59,10 @@ namespace Automobiliu_skelbimu_portalas.Controllers
             var damageRepo = await _damageRepo.FindAll();
             var colorRepo = await _colorRepo.FindAll();
             var gearBoxRepo = await _gearBoxRepo.FindAll();
+            var year = _repo.GetYearList();
+            List<int> price = new List<int>();
+            price = _repo.GetPriceList(price);
+
 
             var makeItems = makeRepo.Select(q => new SelectListItem
             {
@@ -95,10 +99,24 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 Text = q.Title,
                 Value = q.Id.ToString()
             });
+            var yearItems = year.Select(q => new SelectListItem
+            {
+                Text = q.ToString(),
+                Value = q.ToString()
+            });
+            var priceItems = price.Select(q => new SelectListItem
+            {
+                Text = q.ToString(),
+                Value = q.ToString()
+            });
             var search  = new SearchAdVM
             {
                 MakeList = makeItems,
                 ModelList = modelItems,
+                YearFrom = yearItems,
+                YearTo = yearItems,
+                PriceFrom = priceItems,
+                PriceTo = priceItems,
                 FuelTypeList = fuelTypeItems,
                 BodyTypeList = bodyTypeItems,
                 DamageList = damageItems,

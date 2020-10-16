@@ -89,21 +89,21 @@ namespace Automobiliu_skelbimu_portalas.Repository
             {
                 searchResults = searchResults.Where(x => x.CarModelId == searches.CarModelId).ToList();
             }
-            if (searches.PriceFrom > 0)
+            if (searches.PriceFromInt > 0)
             {
-                searchResults = searchResults.Where(x => x.Price < searches.PriceFrom).ToList();
+                searchResults = searchResults.Where(x => x.Price >= searches.PriceFromInt).ToList();
             }
-            if (searches.PriceTo > 0)
+            if (searches.PriceToInt > 0)
             {
-                searchResults = searchResults.Where(x => x.Price > searches.PriceTo).ToList();
+                searchResults = searchResults.Where(x => x.Price <= searches.PriceToInt).ToList();
             }
-            if (searches.YearFrom > 0)
+            if (searches.YearFromInt > 0)
             {
-                searchResults = searchResults.Where(x => x.Year >= searches.YearFrom).ToList();
+                searchResults = searchResults.Where(x => x.Year >= searches.YearFromInt).ToList();
             }
-            if (searches.YearTo > 0)
+            if (searches.YearToInt > 0)
             {
-                searchResults = searchResults.Where(x => x.Year <= searches.YearTo).ToList();
+                searchResults = searchResults.Where(x => x.Year <= searches.YearToInt).ToList();
             }
             if (searches.EngineCapacityFrom > 0)
             {
@@ -136,7 +136,35 @@ namespace Automobiliu_skelbimu_portalas.Repository
             }
             return searchResults;
         }
-     
+        public List<int> GetPriceList(List<int> price)
+        {
+            for (int i = 0; i < 50000; i += 500)
+            {
+                if (i == 0)
+                {
+                    price.Add(100);
+                }
+                else if (i > 5000 && i <= 10000 && i % 1000 != 0)
+                {
+                    continue;
+                }
+                else if (i > 10000 && i % 5000 != 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    price.Add(i);
+                }
+            }
+            return price;
+        }
+        public IEnumerable<int> GetYearList()
+        {
+            var howManyYears = DateTime.Now.Year - 1979;
+            var year = Enumerable.Range(1980, howManyYears);
+            return year;
+        }
     }
         
 }
