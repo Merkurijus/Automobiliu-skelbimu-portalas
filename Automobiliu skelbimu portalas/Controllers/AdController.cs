@@ -76,7 +76,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
             }
             return View(model);
         }
-
+        
         // GET: AdController/Create
         public async Task<ActionResult> Create()
         {

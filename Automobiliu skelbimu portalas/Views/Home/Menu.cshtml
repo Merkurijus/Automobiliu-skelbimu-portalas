@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Menu";
+}
+<h1>@ViewData["Title"]</h1>
+
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Accepted Ad</h5>
+                <p class="card-text">Number accepted Ad: 5</p>
+                <a href="#" class="btn btn-success">Check it out</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Canceled Ad</h5>
+                <p class="card-text">Number of canceled Ad: 10</p>
+                <a href="#" class="btn btn-danger">Check it out</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">New Ad</h5>
+                <p class="card-text">Number of new Ad: 10</p>
+                <a href="#" class="btn btn-warning">Check it out</a>
+            </div>
+        </div>
+        </div>
+    </div>
+<div class="row">
+    <div class="col-lg-12 my-5">
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item"><a class="nav-link active" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Manage Account</a></li>
+        </ul>
+
+    </div>
+</div>

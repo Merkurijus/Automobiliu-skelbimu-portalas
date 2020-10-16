@@ -111,15 +111,22 @@ namespace Automobiliu_skelbimu_portalas.Controllers
             model.Search = search;
             return View(model);
         }
-
+        //GET HomeController/Home
+        public ActionResult Menu()
+        {
+            return View();
+        }
+        //GET HomeController/Marked
         public IActionResult Marked()
         {
             return View();
         }
+        //GET HomeController/Searches
         public IActionResult Searches()
         {
             return View();
         }
+        //GET HomeController/Viewed
         public IActionResult Viewed()
         {
             return View();

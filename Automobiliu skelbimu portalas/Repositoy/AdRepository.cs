@@ -99,11 +99,11 @@ namespace Automobiliu_skelbimu_portalas.Repository
             }
             if (searches.YearFrom > 0)
             {
-                searchResults = searchResults.Where(x => x.Year < searches.YearTo).ToList();
+                searchResults = searchResults.Where(x => x.Year >= searches.YearFrom).ToList();
             }
             if (searches.YearTo > 0)
             {
-                searchResults = searchResults.Where(x => x.Year > searches.YearTo).ToList();
+                searchResults = searchResults.Where(x => x.Year <= searches.YearTo).ToList();
             }
             if (searches.EngineCapacityFrom > 0)
             {
