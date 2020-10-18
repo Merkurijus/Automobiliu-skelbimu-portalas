@@ -1,14 +1,20 @@
-﻿@model Automobiliu_skelbimu_portalas.Models.ModelVM
+﻿@model Automobiliu_skelbimu_portalas.Models.CreateModelVM
 
 <div>
     <h4>ModelVM</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Make.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Make.Title)
         </dd>
     </dl>
 </div>

@@ -36,12 +36,14 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         // GET: ModelController/Details/5
         public async Task<ActionResult> Details(int id)
         {
+           
             var carModel = await _repo.FindById(id);
-            var model = _mapper.Map<Model, ModelVM>(carModel);
+            var model = _mapper.Map<Model, CreateModelVM>(carModel);
             if (model == null)
             {
                 return NotFound();
             }
+           
             return View(model);
         }
 
@@ -90,12 +92,26 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         // GET: ModelController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
+            var makes = await _makeRepo.FindAll();
+            var makeItems = makes.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+           
             var carModel = await _repo.FindById(id);
-            var model = _mapper.Map<Model, CreateModelVM>(carModel);
-            if (model == null)
+            var adModel = _mapper.Map<Model, CreateModelVM>(carModel);
+
+            if (adModel == null)
             {
                 return NotFound();
             }
+            var model = new CreateModelVM
+            {
+                Title = adModel.Title,
+                MakeId = adModel.Id,
+                MakelList = makeItems
+            };
             return View(model);
         }
 

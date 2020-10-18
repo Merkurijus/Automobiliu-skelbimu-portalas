@@ -162,7 +162,7 @@ namespace Automobiliu_skelbimu_portalas.Repository
         public IEnumerable<int> GetYearList()
         {
             var howManyYears = DateTime.Now.Year - 1979;
-            var year = Enumerable.Range(1980, howManyYears);
+            var year = Enumerable.Range(1980, howManyYears).Reverse();
             return year;
         }
     }
