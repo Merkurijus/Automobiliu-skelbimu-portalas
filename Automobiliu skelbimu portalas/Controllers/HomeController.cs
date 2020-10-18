@@ -52,53 +52,19 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         {
             var model = new HomepageAdVM();
             var ads = await _repo.FindAll();
-            var makeRepo = await _makeRepo.FindAll();
-            var modelRepo = await _modelRepo.FindAll();
-            var fuelTypeRepo = await _fuelTypeRepo.FindAll();
-            var bodyTypeRepo = await _bodyTypeRepo.FindAll();
-            var damageRepo = await _damageRepo.FindAll();
-            var colorRepo = await _colorRepo.FindAll();
-            var gearBoxRepo = await _gearBoxRepo.FindAll();
+            
             var year = _repo.GetYearList();
             List<int> price = new List<int>();
             price = _repo.GetPriceList(price);
 
 
-            var makeItems = makeRepo.Select(q => new SelectListItem
-            {
-                Text = q.Title,
-                Value = q.Id.ToString()
-            });
-            var modelItems = modelRepo.Select(q => new SelectListItem
-            {
-                Text = q.Title,
-                Value = q.Id.ToString()
-            });
-            var fuelTypeItems = fuelTypeRepo.Select(q => new SelectListItem
-            {
-                Text = q.Title,
-                Value = q.Id.ToString()
-            });
-            var bodyTypeItems = bodyTypeRepo.Select(q => new SelectListItem
-            {
-                Text = q.Title,
-                Value = q.Id.ToString()
-            });
-            var damageItems = damageRepo.Select(q => new SelectListItem
-            {
-                Text = q.Title,
-                Value = q.Id.ToString()
-            });
-            var colorItems = colorRepo.Select(q => new SelectListItem
-            {
-                Text = q.Title,
-                Value = q.Id.ToString()
-            });
-            var gearBoxItems = gearBoxRepo.Select(q => new SelectListItem
-            {
-                Text = q.Title,
-                Value = q.Id.ToString()
-            });
+            var makeItems = await _makeRepo.GetSelectListItem();
+            var modelItems = await _modelRepo.GetSelectListItem();
+            var fuelTypeItems = await _fuelTypeRepo.GetSelectListItem();
+            var bodyTypeItems = await _bodyTypeRepo.GetSelectListItem();
+            var damageItems = await _damageRepo.GetSelectListItem();
+            var colorItems = await _colorRepo.GetSelectListItem();
+            var gearBoxItems = await _gearBoxRepo.GetSelectListItem();
             var yearItems = year.Select(q => new SelectListItem
             {
                 Text = q.ToString(),

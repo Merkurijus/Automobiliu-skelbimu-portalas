@@ -1,4 +1,5 @@
 ﻿using Automobiliu_skelbimu_portalas.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,5 +9,6 @@ namespace Automobiliu_skelbimu_portalas.Contracts
 {
     public interface IMarkedRepository : IRepositoryBase<Marked>
     {
+      
     }
 }

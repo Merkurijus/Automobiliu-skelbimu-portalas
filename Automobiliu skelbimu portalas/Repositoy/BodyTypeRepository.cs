@@ -1,5 +1,6 @@
 ﻿using Automobiliu_skelbimu_portalas.Contracts;
 using Automobiliu_skelbimu_portalas.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,16 @@ namespace Automobiliu_skelbimu_portalas.Repository
         {
             _db.BodyTypes.Update(entity);
             return await Save();
+        }
+        public async Task<IEnumerable<SelectListItem>> GetSelectListItem()
+        {
+            var data = await _db.BodyTypes.ToListAsync();
+            var selectItems = data.Select(q => new SelectListItem
+            {
+                Text = q.Title,
+                Value = q.Id.ToString()
+            });
+            return selectItems;
         }
     }
 }

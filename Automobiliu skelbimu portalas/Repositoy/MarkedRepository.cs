@@ -56,5 +56,6 @@ namespace Automobiliu_skelbimu_portalas.Repository
             _db.MarkedList.Update(entity);
             return await Save();
         }
+
     }
 }
