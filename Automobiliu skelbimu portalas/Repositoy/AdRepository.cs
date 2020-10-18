@@ -136,8 +136,9 @@ namespace Automobiliu_skelbimu_portalas.Repository
             }
             return searchResults;
         }
-        public List<int> GetPriceList(List<int> price)
+        public List<int> GetPriceList()
         {
+            List<int> price = new List<int>();
             for (int i = 0; i < 50000; i += 500)
             {
                 if (i == 0)

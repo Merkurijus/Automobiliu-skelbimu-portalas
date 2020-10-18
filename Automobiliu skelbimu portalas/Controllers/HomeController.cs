@@ -54,8 +54,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
             var ads = await _repo.FindAll();
             
             var year = _repo.GetYearList();
-            List<int> price = new List<int>();
-            price = _repo.GetPriceList(price);
+            var price = _repo.GetPriceList();
 
 
             var makeItems = await _makeRepo.GetSelectListItem();
@@ -65,6 +64,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
             var damageItems = await _damageRepo.GetSelectListItem();
             var colorItems = await _colorRepo.GetSelectListItem();
             var gearBoxItems = await _gearBoxRepo.GetSelectListItem();
+
             var yearItems = year.Select(q => new SelectListItem
             {
                 Text = q.ToString(),
