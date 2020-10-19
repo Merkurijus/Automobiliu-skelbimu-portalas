@@ -67,5 +67,12 @@ namespace Automobiliu_skelbimu_portalas.Repository
             });
             return selectItems;
         }
+        public async Task<bool> isExist(string title)
+        {
+            var all = await FindAll();
+            var data = all.Where(q => q.Title.Equals(title));
+            if (data.Count() > 0) return true;
+            return false;
+        }
     }
 }

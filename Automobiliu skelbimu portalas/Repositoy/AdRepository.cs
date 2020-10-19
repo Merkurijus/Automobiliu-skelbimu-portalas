@@ -48,6 +48,7 @@ namespace Automobiliu_skelbimu_portalas.Repository
                 Include(q => q.Damage).
                 Include(q => q.Color).
                 Include(q => q.GearBox).
+                Where(q => q.IsApproved == true).
                 ToListAsync();
             return data;
         }
@@ -62,7 +63,7 @@ namespace Automobiliu_skelbimu_portalas.Repository
                 .Include(q => q.Damage)
                 .Include(q => q.Color)
                 .Include(q => q.GearBox)
-                .FirstOrDefaultAsync(q => q.Id == id);
+                .FirstOrDefaultAsync(q => q.Id == id && q.IsApproved == true);
             return data;
         }
 
