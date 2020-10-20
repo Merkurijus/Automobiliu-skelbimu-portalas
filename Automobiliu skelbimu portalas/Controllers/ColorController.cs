@@ -63,6 +63,12 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 }
 
                 var color = _mapper.Map<Color>(model);
+                var isExists = await _repo.isExist(color.Title);
+                if (isExists)
+                {
+                    ModelState.AddModelError("", "This color already exist");
+                    return View(model);
+                }
                 var isSuccess = await _repo.Create(color);
                 if (!isSuccess)
                 {
@@ -85,6 +91,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         {
             var color = await _repo.FindById(id);
             var model = _mapper.Map<Color, CreateColorVM>(color);
+
             if (model == null)
             {
                 return NotFound();
@@ -106,7 +113,13 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 }
 
                 var color = _mapper.Map<Color>(model);
-                var isSuccess = await _repo.Edit(color);
+                var isExists = await _repo.isExist(color.Title);
+                if (isExists)
+                {
+                    ModelState.AddModelError("", "This color already exist");
+                    return View(model);
+                }
+                var isSuccess = await _repo.Update(color);
                 if (!isSuccess)
                 {
                     ModelState.AddModelError("", "Something went wrong...");

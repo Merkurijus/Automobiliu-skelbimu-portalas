@@ -63,6 +63,12 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 }
 
                 var gearBox = _mapper.Map<GearBox>(model);
+                var isExists = await _repo.isExist(gearBox.Title);
+                if (isExists)
+                {
+                    ModelState.AddModelError("", "This gear box already exist");
+                    return View(model);
+                }
                 var isSuccess = await _repo.Create(gearBox);
                 if (!isSuccess)
                 {
@@ -106,7 +112,13 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 }
 
                 var gearBox = _mapper.Map<GearBox>(model);
-                var isSuccess = await _repo.Edit(gearBox);
+                var isExists = await _repo.isExist(gearBox.Title);
+                if (isExists)
+                {
+                    ModelState.AddModelError("", "This gear box already exist");
+                    return View(model);
+                }
+                var isSuccess = await _repo.Update(gearBox);
                 if (!isSuccess)
                 {
                     ModelState.AddModelError("", "Something went wrong...");

@@ -104,6 +104,12 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                     return View(model);
                 }
                 var make = _mapper.Map<Make>(model);
+                var isExists = await _repo.isExist(make.Title);
+                if (isExists)
+                {
+                    ModelState.AddModelError("", "This make already exist");
+                    return View(model);
+                }
                 var isSuccess = await _repo.Update(make);
                 if (!isSuccess)
                 {

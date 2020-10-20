@@ -10,5 +10,6 @@ namespace Automobiliu_skelbimu_portalas.Contracts
     public interface IModelRepository : IRepositoryBase<Model>
     {
         public Task<IEnumerable<SelectListItem>> GetSelectListItem();
+        public Task<bool> isExist(string title, int make);
     }
 }

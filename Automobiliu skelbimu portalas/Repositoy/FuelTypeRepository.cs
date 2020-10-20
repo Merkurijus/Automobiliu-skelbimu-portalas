@@ -27,13 +27,6 @@ namespace Automobiliu_skelbimu_portalas.Repository
             _db.FuelTypes.Remove(entity);
             return await Save();
         }
-
-        public async Task<bool> Edit(FuelType entity)
-        {
-            _db.FuelTypes.Update(entity);
-            return await Save();
-        }
-
         public async Task<List<FuelType>> FindAll()
         {
             var data = await _db.FuelTypes.ToListAsync();
@@ -66,6 +59,11 @@ namespace Automobiliu_skelbimu_portalas.Repository
                 Value = q.Id.ToString()
             });
             return selectItems;
+        }
+        public async Task<bool> isExist(string title)
+        {
+            var exists = await _db.FuelTypes.AnyAsync(q => q.Title.Equals(title));
+            return exists;
         }
     }
 }

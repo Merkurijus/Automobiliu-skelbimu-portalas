@@ -28,12 +28,6 @@ namespace Automobiliu_skelbimu_portalas.Repository
             return await Save();
         }
 
-        public async Task<bool> Edit(Model entity)
-        {
-            _db.Models.Update(entity);
-            return await Save();
-        }
-
         public async Task<List<Model>> FindAll()
         {
             var data = await _db.Models.ToListAsync();
@@ -68,6 +62,11 @@ namespace Automobiliu_skelbimu_portalas.Repository
                 Value = q.Id.ToString()
             });
             return selectItems;
+        }
+        public async Task<bool> isExist(string title, int id)
+        {
+            var exists = await _db.Models.AnyAsync(q => q.Title.Equals(title) && q.Id == id);
+            return exists;
         }
     }
 }

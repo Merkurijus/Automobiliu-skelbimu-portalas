@@ -63,6 +63,12 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 }
 
                 var damages = _mapper.Map<Damage>(model);
+                var isExists = await _repo.isExist(damages.Title);
+                if (isExists)
+                {
+                    ModelState.AddModelError("", "This damage already exist");
+                    return View(model);
+                }
                 var isSuccess = await _repo.Create(damages);
                 if (!isSuccess)
                 {
@@ -106,7 +112,13 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 }
 
                 var damages = _mapper.Map<Damage>(model);
-                var isSuccess = await _repo.Edit(damages);
+                var isExists = await _repo.isExist(damages.Title);
+                if (isExists)
+                {
+                    ModelState.AddModelError("", "This damage already exist");
+                    return View(model);
+                }
+                var isSuccess = await _repo.Update(damages);
                 if (!isSuccess)
                 {
                     ModelState.AddModelError("", "Something went wrong...");
@@ -114,7 +126,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception e)
             {
                 return View(model);
             }

@@ -27,12 +27,7 @@ namespace Automobiliu_skelbimu_portalas.Repository
             return await Save();
         }
 
-        public async Task<bool> Edit(Marked entity)
-        {
-            _db.MarkedList.Update(entity);
-            return await Save();
-        }
-
+   
         public async Task<List<Marked>> FindAll()
         {
             var data = await _db.MarkedList.ToListAsync();

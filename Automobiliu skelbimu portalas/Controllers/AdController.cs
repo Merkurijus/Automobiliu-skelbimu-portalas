@@ -191,7 +191,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 }
 
                 var ad = _mapper.Map<Ad>(model);
-                var isSuccess = await _adRepo.Edit(ad);
+                var isSuccess = await _adRepo.Update(ad);
                 if (!isSuccess)
                 {
                     ModelState.AddModelError("", "Something went wrong...");

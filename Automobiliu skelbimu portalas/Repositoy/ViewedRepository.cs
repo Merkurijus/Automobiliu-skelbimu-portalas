@@ -27,11 +27,6 @@ namespace Automobiliu_skelbimu_portalas.Repository
             return await Save();
         }
 
-        public async Task<bool> Edit(Viewed entity)
-        {
-            _db.ViewedList.Update(entity);
-            return await Save();
-        }
 
         public async Task<List<Viewed>> FindAll()
         {

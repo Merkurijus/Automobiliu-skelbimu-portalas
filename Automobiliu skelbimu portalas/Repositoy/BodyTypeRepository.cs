@@ -28,11 +28,6 @@ namespace Automobiliu_skelbimu_portalas.Repository
             return Save();
         }
 
-        public async Task<bool> Edit(BodyType entity)
-        {
-            _db.BodyTypes.Update(entity);
-            return await Save();
-        }
 
         public async Task<List<BodyType>> FindAll()
         {
@@ -66,6 +61,11 @@ namespace Automobiliu_skelbimu_portalas.Repository
                 Value = q.Id.ToString()
             });
             return selectItems;
+        }
+        public async Task<bool> isExist(string title)
+        {
+            var exists = await _db.BodyTypes.AnyAsync(q => q.Title.Equals(title));
+            return exists;
         }
     }
 }

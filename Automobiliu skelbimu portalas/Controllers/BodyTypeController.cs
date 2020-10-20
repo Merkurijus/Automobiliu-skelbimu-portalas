@@ -63,6 +63,13 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 }
 
                 var bodyType = _mapper.Map<BodyType>(model);
+
+                var isExists = await _repo.isExist(bodyType.Title);
+                if (isExists)
+                {
+                    ModelState.AddModelError("", "This body type already exist");
+                    return View(model);
+                }
                 var isSuccess = await _repo.Create(bodyType);
                 if (!isSuccess)
                 {
@@ -85,6 +92,7 @@ namespace Automobiliu_skelbimu_portalas.Controllers
         {
             var bodyType = await _repo.FindById(id);
             var model = _mapper.Map<BodyType, CreateBodyTypeVM>(bodyType);
+
             if (model == null)
             {
                 return NotFound();
@@ -106,7 +114,13 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 }
                 
                 var bodyType = _mapper.Map<BodyType>(model);
-                var isSuccess = await _repo.Edit(bodyType);
+                var isExists = await _repo.isExist(bodyType.Title);
+                if (isExists)
+                {
+                    ModelState.AddModelError("", "This body type already exist");
+                    return View(model);
+                }
+                var isSuccess = await _repo.Update(bodyType);
                 if (!isSuccess)
                 {
                     ModelState.AddModelError("", "Something went wrong...");

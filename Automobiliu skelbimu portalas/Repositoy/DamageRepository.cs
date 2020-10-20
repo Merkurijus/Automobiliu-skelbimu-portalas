@@ -28,12 +28,12 @@ namespace Automobiliu_skelbimu_portalas.Repository
             return await Save();
         }
 
-        public async Task<bool> Edit(Damage entity)
+        public async Task<bool> Update(Damage entity)
         {
             _db.Damages.Update(entity);
             return await Save();
         }
-
+        
         public async Task<List<Damage>> FindAll()
         {
             var data = await _db.Damages.ToListAsync();
@@ -52,11 +52,7 @@ namespace Automobiliu_skelbimu_portalas.Repository
             return changes > 0;
         }
 
-        public async Task<bool> Update(Damage entity)
-        {
-            _db.Damages.Update(entity);
-            return await Save();
-        }
+        
         public async Task<IEnumerable<SelectListItem>> GetSelectListItem()
         {
             var data = await _db.Damages.ToListAsync();
@@ -66,6 +62,12 @@ namespace Automobiliu_skelbimu_portalas.Repository
                 Value = q.Id.ToString()
             });
             return selectItems;
+        }
+        public async Task<bool> isExist(string title)
+        {
+            var exists = await _db.Damages.AnyAsync(q => q.Title.Equals(title));
+            return exists;
+           
         }
     }
 }

@@ -63,6 +63,12 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 }
 
                 var fuelType = _mapper.Map<FuelType>(model);
+                var isExists = await _repo.isExist(fuelType.Title);
+                if (isExists)
+                {
+                    ModelState.AddModelError("", "This fuel type already exist");
+                    return View(model);
+                }
                 var isSuccess = await _repo.Create(fuelType);
                 if (!isSuccess)
                 {
@@ -106,7 +112,13 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                 }
 
                 var fuelType = _mapper.Map<FuelType>(model);
-                var isSuccess = await _repo.Edit(fuelType);
+                var isExists = await _repo.isExist(fuelType.Title);
+                if (isExists)
+                {
+                    ModelState.AddModelError("", "This fuel type already exist");
+                    return View(model);
+                }
+                var isSuccess = await _repo.Update(fuelType);
                 if (!isSuccess)
                 {
                     ModelState.AddModelError("", "Something went wrong...");

@@ -75,6 +75,20 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                     return View(model);
                 }
                 var carModel = _mapper.Map<Model>(model);
+                var makes = await _makeRepo.FindAll();
+                var makeItems = makes.Select(q => new SelectListItem
+                {
+                    Text = q.Title,
+                    Value = q.Id.ToString()
+                });
+                model.MakelList = makeItems;
+                var isExists = await _repo.isExist(carModel.Title, carModel.MakeId);
+
+                if (isExists)
+                {
+                    ModelState.AddModelError("", "This model already exist");
+                    return View(model);
+                }
                 var isSuccess = await _repo.Create(carModel);
                 if (!isSuccess)
                 {
@@ -127,6 +141,22 @@ namespace Automobiliu_skelbimu_portalas.Controllers
                     return View(model);
                 }
                 var carModel = _mapper.Map<Model>(model);
+                
+                var makes = await _makeRepo.FindAll();
+                var makeItems = makes.Select(q => new SelectListItem
+                {
+                    Text = q.Title,
+                    Value = q.Id.ToString()
+                });
+                model.MakelList = makeItems;
+               
+                var isExists = await _repo.isExist(carModel.Title, carModel.MakeId);
+                if (isExists)
+                {
+                    ModelState.AddModelError("", "This model already exist");
+                    return View(model);
+                }
+
                 var isSuccess = await _repo.Update(carModel);
                 if (!isSuccess)
                 {

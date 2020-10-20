@@ -16,7 +16,7 @@ namespace Automobiliu_skelbimu_portalas.Models
         public int Id { get; set; }
         
         public string Title { get; set; }
-        public int? MakeId { get; set; }
+        public int MakeId { get; set; }
         public MakeVM Make { get; set; }
     }
     public class CreateModelVM
@@ -28,7 +28,7 @@ namespace Automobiliu_skelbimu_portalas.Models
         [DisplayName("Model")]
         public string Title { get; set; }
         public IEnumerable<SelectListItem> MakelList { get; set; }
-        public int? MakeId { get; set; }
+        public int MakeId { get; set; }
         public MakeVM Make { get; set; }
     }
 }

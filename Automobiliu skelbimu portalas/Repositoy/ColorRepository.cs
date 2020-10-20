@@ -28,12 +28,6 @@ namespace Automobiliu_skelbimu_portalas.Repository
             return await Save();
         }
 
-        public async Task<bool> Edit(Color entity)
-        {
-            _db.Colors.Update(entity);
-            return await Save();
-        }
-
         public async Task<List<Color>> FindAll()
         {
             var data = await _db.Colors.ToListAsync();
@@ -66,6 +60,11 @@ namespace Automobiliu_skelbimu_portalas.Repository
                 Value = q.Id.ToString()
             });
             return selectItems;
+        }
+        public async Task<bool> isExist(string title)
+        {
+            var exists = await _db.Colors.AnyAsync(q => q.Title.Equals(title));
+            return exists;
         }
     }
 }

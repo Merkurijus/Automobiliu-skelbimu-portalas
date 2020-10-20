@@ -28,12 +28,7 @@ namespace Automobiliu_skelbimu_portalas.Repository
             return await Save();
         }
 
-        public async Task<bool> Edit(GearBox entity)
-        {
-            _db.GearBoxes.Update(entity);
-            return await Save();
-        }
-
+       
         public async Task<List<GearBox>> FindAll()
         {
             var data = await _db.GearBoxes.ToListAsync();
@@ -66,6 +61,11 @@ namespace Automobiliu_skelbimu_portalas.Repository
                 Value = q.Id.ToString()
             });
             return selectItems;
+        }
+        public async Task<bool> isExist(string title)
+        {
+            var exists = await _db.GearBoxes.AnyAsync(q => q.Title.Equals(title));
+            return exists;
         }
     }
 }

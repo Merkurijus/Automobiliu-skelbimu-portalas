@@ -15,7 +15,7 @@ namespace Automobiliu_skelbimu_portalas.Data
         [Required]
         public string Title { get; set; }
         [ForeignKey("MakeId")]
-        public int? MakeId { get; set; }
+        public int MakeId { get; set; }
         public Make Make { get; set; }
     }
 }
